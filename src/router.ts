@@ -1,11 +1,12 @@
 import { Router } from 'express'
 import { body } from 'express-validator'
-import { createAccount } from './handlers'
+import { createAccount, login } from './handlers'
+import { handleInputErrors } from './middleware/validation'
 
 const router = Router()
 
 // Autentication and sign in
-router.post('/auth/register', 
+router.post('/auth/register',
     body('handle')
         .notEmpty()
         .withMessage('Handle can not be empty.'),
@@ -18,8 +19,20 @@ router.post('/auth/register',
     body('password')
         .isLength({min: 8})
         .withMessage('Password must be at least 8 characters long.'),
+    handleInputErrors,
+    createAccount
+)
 
-    createAccount)
+router.post('/auth/login', 
+    body('email')
+        .isEmail()
+        .withMessage('Invalid email.'),
+    body('password')
+        .notEmpty()
+        .withMessage('Password is mandatory.'),
+    handleInputErrors,
+    login
+)
 
 
 export default router
