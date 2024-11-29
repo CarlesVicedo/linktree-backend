@@ -5,7 +5,6 @@ import { handleInputErrors } from './middleware/validation'
 
 const router = Router()
 
-// Autentication and sign in
 router.post('/auth/register',
     body('handle')
         .notEmpty()
