@@ -2,7 +2,6 @@ import {Request, Response} from 'express'
 import User from "../models/User"
 import { checkPassword, hashPassword } from '../utils/auth'
 import slug from 'slug'
-import jwt from 'jsonwebtoken'
 import { generateJWT } from '../utils/jwt'
 
 export const createAccount = async (req: Request, res: Response) => {
@@ -59,35 +58,5 @@ export const login = async (req: Request, res: Response) => {
 }
 
 export const getUser = async (req: Request, res: Response) => {
-    const bearer = req.headers.authorization
-    const [ , token] = bearer.split(' ')
-
-    if(!bearer) {
-        const err = new Error('No authorized')
-        res.status(401).json(err.message)
-        return
-    }
-
-    if(!token) {
-        const err = new Error('No authorized')
-        res.status(401).json(err.message)
-        return
-    }
-
-    try {
-        const result = jwt.verify(token, process.env.JWT_SECRET)
-        if(typeof result === 'object' && result.id){
-            const user = await User.findById(result.id).select('-password')
-            
-            if(!user) {
-                const err = new Error('User not found')
-                res.status(404).json(err.message)
-                return
-            }
-            res.json(user)
-        }
-
-    } catch(error) {
-        res.status(500).json('Invalid token')
-    }
+    res.json(req.user)
 }
