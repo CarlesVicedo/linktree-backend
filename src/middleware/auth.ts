@@ -15,16 +15,16 @@ export const authenticate = async (req: Request, res:Response, next: NextFunctio
     const bearer = req.headers.authorization
   
     if(!bearer) {
-        const err = new Error('No authorized')
-        res.status(401).json(err.message)
+        const err = new Error('Not authorized')
+        res.status(401).json({error: err.message})
         return
     }
 
     const [ , token] = bearer.split(' ')
 
     if(!token) {
-        const err = new Error('No authorized')
-        res.status(401).json(err.message)
+        const err = new Error('Not authorized')
+        res.status(401).json({error: err.message})
         return
     }
 
@@ -35,7 +35,7 @@ export const authenticate = async (req: Request, res:Response, next: NextFunctio
             
             if(!user) {
                 const err = new Error('User not found')
-                res.status(404).json(err.message)
+                res.status(404).json({error: err.message})
                 return
             }
             req.user = user
@@ -43,6 +43,6 @@ export const authenticate = async (req: Request, res:Response, next: NextFunctio
         }
 
     } catch(error) {
-        res.status(500).json('Invalid token')
+        res.status(500).json({error: 'Invalid token'})
     }
 }
