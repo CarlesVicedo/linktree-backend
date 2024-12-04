@@ -2,7 +2,10 @@ import {Request, Response} from 'express'
 import User from "../models/User"
 import { checkPassword, hashPassword } from '../utils/auth'
 import slug from 'slug'
+import formidable from 'formidable'
+import { v4 as uuid } from 'uuid'
 import { generateJWT } from '../utils/jwt'
+import cloudinary from '../config/cloudinary'
 
 export const createAccount = async (req: Request, res: Response) => {
 
@@ -61,6 +64,7 @@ export const getUser = async (req: Request, res: Response) => {
     res.json(req.user)
 }
 
+// TODO: Delete this any
 export const updateProfile = async (req: Request, res: Response): Promise<any> => {
     try {
         const {description} = req.body
@@ -80,6 +84,30 @@ export const updateProfile = async (req: Request, res: Response): Promise<any> =
         res.send('Successfully updated user')
 
     } catch (e) {
+        const error = new Error('There was an error handling your request.')
+        return res.status(500).json({error: error.message})
+    }
+}
+
+// TODO: Delete this any
+export const uploadImage = async (req: Request, res: Response): Promise<any> => {
+    try {
+        const form = formidable({multiples: false})
+        form.parse(req, (error, fields, files) => {
+            cloudinary.uploader.upload(files.file[0].filepath, {public_id: uuid()}, async (error, result) => {
+                if(error) {
+                    const error = new Error('There was an error uploading your image.')
+                    return res.status(500).json({error: error.message})
+                }
+    
+                if(result) {
+                    req.user.image = result.secure_url
+                    await req.user.save()
+                    res.json({image: result.secure_url})
+                }
+            })
+        })
+    } catch(e) {
         const error = new Error('There was an error handling your request.')
         return res.status(500).json({error: error.message})
     }
