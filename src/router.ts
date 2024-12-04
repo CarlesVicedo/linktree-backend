@@ -34,7 +34,9 @@ router.post('/auth/login',
     login
 )
 
-router.get('/user',authenticate, getUser)
+router.get('/user',
+    authenticate, 
+    getUser)
 router.patch('/user', 
         body('handle')
         .notEmpty()
@@ -42,9 +44,9 @@ router.patch('/user',
     body('description')
         .notEmpty()
         .withMessage('Description can not be empty.'),
-        handleInputErrors,
-        authenticate, 
-        updateProfile
+    handleInputErrors,
+    authenticate, 
+    updateProfile
 )
 
 
