@@ -67,7 +67,7 @@ export const getUser = async (req: Request, res: Response) => {
 // TODO: Delete this any
 export const updateProfile = async (req: Request, res: Response): Promise<any> => {
     try {
-        const {description} = req.body
+        const {description, links} = req.body
 
         const handle = slug(req.body.handle, '')
         const handleExists = await User.findOne({handle})
@@ -79,6 +79,7 @@ export const updateProfile = async (req: Request, res: Response): Promise<any> =
 
         req.user.description = description
         req.user.handle = handle
+        req.user.links = links
 
         await req.user.save()
         res.send('Successfully updated user')
