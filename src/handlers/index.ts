@@ -113,3 +113,13 @@ export const uploadImage = async (req: Request, res: Response): Promise<any> => 
         return res.status(500).json({error: error.message})
     }
 }
+
+// TODO: Delete this any
+export const getUserByHandle = async (req: Request, res: Response): Promise<any> => {
+    try {
+       const { handle } = req.params
+    } catch (e) {
+        const error = new Error('There was an error handling your request.')
+        return res.status(500).json({error: error.message})
+    }
+}
