@@ -118,6 +118,14 @@ export const uploadImage = async (req: Request, res: Response): Promise<any> => 
 export const getUserByHandle = async (req: Request, res: Response): Promise<any> => {
     try {
        const { handle } = req.params
+       const user = await User.findOne({handle}).select('-_id -__v -email -password')
+
+       if(!user) {
+        const error = new Error('User does not exist')
+        return res.status(404).json({error: error.message})
+       }
+
+       res.json(user)
     } catch (e) {
         const error = new Error('There was an error handling your request.')
         return res.status(500).json({error: error.message})
