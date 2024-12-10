@@ -131,3 +131,21 @@ export const getUserByHandle = async (req: Request, res: Response): Promise<any>
         return res.status(500).json({error: error.message})
     }
 }
+
+// TODO: Delete this any
+export const searchByHandle = async (req: Request, res: Response): Promise<any> => {
+    try {
+        const {handle} = req.body
+        const userExists = await User.findOne({handle})
+
+        if(userExists) {
+            const error = new Error(`${handle} already exists`)
+            res.status(409).json({error: error.message})
+        }
+
+        res.send(`${handle} is available`)
+    } catch (e) {
+        const error = new Error('There was an error handling your request.')
+        return res.status(500).json({error: error.message})
+    }
+}
