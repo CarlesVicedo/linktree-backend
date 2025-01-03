@@ -140,10 +140,10 @@ export const searchByHandle = async (req: Request, res: Response): Promise<any> 
 
         if(userExists) {
             const error = new Error(`${handle} already exists`)
-            res.status(409).json({error: error.message})
+           return res.status(409).json({error: error.message})
         }
 
-        res.send(`${handle} is available`)
+       res.send(`${handle} is available`)
     } catch (e) {
         const error = new Error('There was an error handling your request.')
         return res.status(500).json({error: error.message})
