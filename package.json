@@ -24,6 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.3",
     "slug": "^8.2.3",
+    "swagger-ui-express": "^5.0.1",
     "uuid": "^11.0.3"
   },
   "devDependencies": {
@@ -32,8 +33,10 @@
     "@types/express": "^5.0.0",
     "@types/formidable": "^3.4.5",
     "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.10.7",
     "@types/slug": "^5.0.9",
     "nodemon": "^3.1.7",
+    "swagger-autogen": "^2.23.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
   }

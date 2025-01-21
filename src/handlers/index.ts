@@ -64,8 +64,7 @@ export const getUser = async (req: Request, res: Response) => {
     res.json(req.user)
 }
 
-// TODO: Delete this any
-export const updateProfile = async (req: Request, res: Response): Promise<any> => {
+export const updateProfile = async (req: Request, res: Response) => {
     try {
         const {description, links} = req.body
 
@@ -86,19 +85,19 @@ export const updateProfile = async (req: Request, res: Response): Promise<any> =
 
     } catch (e) {
         const error = new Error('There was an error handling your request.')
-        return res.status(500).json({error: error.message})
+        res.status(500).json({error: error.message})
     }
 }
 
-// TODO: Delete this any
-export const uploadImage = async (req: Request, res: Response): Promise<any> => {
+export const uploadImage = async (req: Request, res: Response) => {
     try {
         const form = formidable({multiples: false})
         form.parse(req, (error, fields, files) => {
             cloudinary.uploader.upload(files.file[0].filepath, {public_id: uuid()}, async (error, result) => {
                 if(error) {
                     const error = new Error('There was an error uploading your image.')
-                    return res.status(500).json({error: error.message})
+                    res.status(500).json({error: error.message})
+                    return
                 }
     
                 if(result) {
@@ -110,42 +109,42 @@ export const uploadImage = async (req: Request, res: Response): Promise<any> => 
         })
     } catch(e) {
         const error = new Error('There was an error handling your request.')
-        return res.status(500).json({error: error.message})
+        res.status(500).json({error: error.message})
     }
 }
 
-// TODO: Delete this any
-export const searchByHandle = async (req: Request, res: Response): Promise<any> => {
+export const searchByHandle = async (req: Request, res: Response) => {
     try {
         const {handle} = req.body
         const userExists = await User.findOne({handle})
 
         if(userExists) {
             const error = new Error(`${handle} already exists`)
-           return res.status(409).json({error: error.message})
+           res.status(409).json({error: error.message})
+           return
         }
 
        res.send(`${handle} is available`)
     } catch (e) {
         const error = new Error('There was an error handling your request.')
-        return res.status(500).json({error: error.message})
+        res.status(500).json({error: error.message})
     }
 }
 
-// TODO: Delete this any
-export const getUserByHandle = async (req: Request, res: Response): Promise<any> => {
+export const getUserByHandle = async (req: Request, res: Response) => {
     try {
        const { handle } = req.params
        const user = await User.findOne({handle}).select('-_id -__v -email -password')
 
        if(!user) {
         const error = new Error('User does not exist')
-        return res.status(404).json({error: error.message})
+        res.status(404).json({error: error.message})
+        return
        }
 
        res.json(user)
     } catch (e) {
         const error = new Error('There was an error handling your request.')
-        return res.status(500).json({error: error.message})
+        res.status(500).json({error: error.message})
     }
 }
