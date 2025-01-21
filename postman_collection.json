@@ -1,0 +1,215 @@
+{
+    "info": {
+        "_postman_id": "a2fb6ee5-317e-4003-acd4-821aef03722d",
+        "name": "LinkTree - Node and TypeScript",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "Register user",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:4000/auth/register",
+                    "path": [
+                        "auth",
+                        "register"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "4000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"handle\": \"Test Account\",\n  \"name\": \"Test Name\",\n  \"email\": \"test@example.com\",\n  \"password\": \"12345678\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Authenticate users",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:4000/auth/login",
+                    "path": [
+                        "auth",
+                        "login"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "4000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"12345678\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Obtain authenticated user",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:4000/user",
+                    "path": [
+                        "user"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "4000"
+                },
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OGY4N2U1NjZjNjYzODI4ODgwMTUxZSIsImlhdCI6MTczNzQ1OTcyNSwiZXhwIjoxNzUzMDExNzI1fQ.mz-378hghhcoCCa2KjrFPIBu2VOpTCc_ccOnjo0O8tA",
+                        "disabled": true
+                    }
+                ],
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OGY4N2U1NjZjNjYzODI4ODgwMTUxZSIsImlhdCI6MTczNzQ1OTcyNSwiZXhwIjoxNzUzMDExNzI1fQ.mz-378hghhcoCCa2KjrFPIBu2VOpTCc_ccOnjo0O8tA",
+                            "type": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "updateProfile",
+            "request": {
+                "method": "PATCH",
+                "url": {
+                    "raw": "http://localhost:4000/user/",
+                    "path": [
+                        "user"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "4000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"handle\": \"test-acc\",\n  \"description\": \"Updated description\"\n}"
+                },
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NGVkMTAzZTNhYjVjMzM1NDViY2QwYSIsImlhdCI6MTczMzI1NjQzMSwiZXhwIjoxNzQ4ODA4NDMxfQ.LVztiQRwasCJ6Xymhcj2bGU4bmr3d6vIXbzEkvIuN84",
+                            "type": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "uploadProfileImage",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:4000/user/image",
+                    "path": [
+                        "user",
+                        "image"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "4000"
+                },
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "file",
+                            "src": "c:\\Users\\carle\\Desktop\\carles-vicedo-web-developer.png",
+                            "type": "file"
+                        }
+                    ]
+                },
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NGVkMTAzZTNhYjVjMzM1NDViY2QwYSIsImlhdCI6MTczMzMxMTYxOSwiZXhwIjoxNzQ4ODYzNjE5fQ.0UuZVCqe5GiGfd1h1SWQL_X1wXLtmcqavClBqWXiEJc",
+                            "type": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Get user by handle",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:4000/test-acc",
+                    "path": [
+                        "test-acc"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "4000"
+                }
+            }
+        },
+        {
+            "name": "Search by handle",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:4000/search",
+                    "path": [
+                        "search"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "4000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"handle\": \"new-acc\"\n}"
+                }
+            }
+        }
+    ]
+}
